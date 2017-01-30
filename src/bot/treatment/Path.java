@@ -1,8 +1,11 @@
 package bot.treatment;
 
+import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.Robot;
 import java.util.ArrayList;
 
 public class Path {
@@ -40,7 +43,7 @@ public class Path {
 		for (Position p : positions)
 			System.out.println(p);
 	}
-
+	
 	public void follow() throws InterruptedException {
 
 		for (Position p : positions) {

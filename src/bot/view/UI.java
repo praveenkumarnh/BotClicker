@@ -128,7 +128,7 @@ public class UI implements KeyListener {
 	}
 
 	public JScrollPane buildPosTextField() {
-		textArea = new JTextArea("TEST");
+		textArea = new JTextArea("Le contenu du parcours va apparaitre ici");
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
 		textArea.setVisible(true);
@@ -148,7 +148,6 @@ public class UI implements KeyListener {
 	public JPanel buildResetButton() {
 		JButton launch = new JButton("Reinitialiser le parcours");
 		launch.setBackground(new Color(255, 255, 255));
-		launch.setBorder(null);
 		launch.setPreferredSize(new Dimension(150, 50));
 		launch.addActionListener(new ActionListener() {
 
@@ -170,7 +169,6 @@ public class UI implements KeyListener {
 	public JPanel buildLaunchButton() {
 		JButton launch = new JButton("Lancer le bot");
 		launch.setBackground(new Color(255, 255, 255));
-		launch.setBorder(null);
 		launch.setPreferredSize(new Dimension(100, 50));
 		launch.addActionListener(new ActionListener() {
 
