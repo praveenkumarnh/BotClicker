@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import org.omg.CORBA.Request;
-
 import bot.treatment.Path;
 import bot.treatment.Position;
 
@@ -151,6 +149,7 @@ public class UI implements KeyListener {
 		panel.add(launch);
 		return panel;
 	}
+
 	public JPanel buildResetButton() {
 		JButton launch = new JButton("Reinitialiser le parcours");
 		launch.setBackground(new Color(255, 255, 255));

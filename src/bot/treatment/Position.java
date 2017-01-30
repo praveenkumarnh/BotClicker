@@ -1,6 +1,9 @@
 package bot.treatment;
 
 import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
@@ -33,7 +36,13 @@ public abstract class Position {
 			e.printStackTrace();
 		}
 	}
-	
+	public void exitIfMouseMovedByUser () {
+		PointerInfo a = MouseInfo.getPointerInfo();
+		Point b = a.getLocation();
+		if (b.getX() != getX() || b.getY() != getY())
+			System.exit(0);
+
+	}
 	/*** GETTERS AND SETTERS ***/
 	public double getX() {
 		return x;
