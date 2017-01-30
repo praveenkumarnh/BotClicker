@@ -27,4 +27,7 @@ public class PosSpell extends Position{
 			e.printStackTrace();
 		}
 	}
+	public String toString() {
+		return "PosSpell [getX()=" + getX() + ", getY()=" + getY() + "]";
+	}
 }

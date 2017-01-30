@@ -27,5 +27,7 @@ public class PosSkip extends Position {
 			e.printStackTrace();
 		}
 	}
-
+	public String toString() {
+		return "PosSkip [getX()=" + getX() + ", getY()=" + getY() + "]";
+	}
 }

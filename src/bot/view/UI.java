@@ -2,6 +2,7 @@ package bot.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,9 +26,19 @@ public class UI implements KeyListener {
 	private ArrayList<Path> paths = new ArrayList<Path>();
 	private JTextArea textArea;
 	private JFrame mainFrame;
+
 	private static final int WINDOW_X = 1200;
 	private static final int WINDOW_Y = 800;
 	private static final Color COLOR_GRAY = new Color(53, 53, 53);
+
+	private static final int POS_SELECTION_LOCKED = -1;
+	private static final int MOB_POS = 0;
+	private static final int PASS_POS = 1;
+	private static final int TAB_POS = 2;
+	private static final int SPELL_POS = 3;
+	private static final int SHUT_ENDFRAME = 4;
+
+	private int posType = -1;
 
 	public UI() {
 		mainFrame = buildFrame();
@@ -46,7 +57,7 @@ public class UI implements KeyListener {
 		scrollPanel.setBackground(COLOR_GRAY);
 		mainFrame.addKeyListener(this);
 		mainPanel.add(posPanel);
-		mainPanel.add(buildCatchButton());
+		mainPanel.add(buildCreateMobPathPanel());
 		mainPanel.add(scrollPanel);
 		mainPanel.add(buildLaunchButton());
 		mainPanel.add(buildResetButton());
@@ -128,26 +139,10 @@ public class UI implements KeyListener {
 		return scroll;
 	}
 
-	public JPanel buildCatchButton() {
-		JButton launch = new JButton("Capturer positions");
-		launch.setBackground(new Color(255, 255, 255));
-		launch.setBorder(null);
-		launch.setPreferredSize(new Dimension(150, 50));
-		launch.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.setPreferredSize(new Dimension(50, 50));
-				mainFrame.setSize(new Dimension(50, 50));
-				mainFrame.requestFocus();
-
-			}
-		});
-
-		JPanel panel = new JPanel();
-		panel.setBackground(COLOR_GRAY);
-		panel.add(launch);
-		return panel;
+	public void catchResizing() {
+		mainFrame.setPreferredSize(new Dimension(50, 50));
+		mainFrame.setSize(new Dimension(50, 50));
+		mainFrame.requestFocus();
 	}
 
 	public JPanel buildResetButton() {
@@ -204,6 +199,63 @@ public class UI implements KeyListener {
 
 	}
 
+	public JPanel buildCreateMobPathPanel() {
+		
+		JButton addPosMob = new JButton("Position du mob");
+		addPosMob.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				posType = MOB_POS;
+				catchResizing();
+			}
+		});
+		addPosMob.setBackground(Color.WHITE);
+		
+		JButton addPassTurn = new JButton("Position du bouton passer tour");
+		addPassTurn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				posType = PASS_POS;
+				catchResizing();
+			}
+		});
+		addPassTurn.setBackground(Color.WHITE);
+		
+		JButton addChangeTab = new JButton("Position du 1er onglet noemu");
+		addChangeTab.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				posType = TAB_POS;
+				catchResizing();
+			}
+		});
+		addChangeTab.setBackground(Color.WHITE);
+		
+		JButton addSpell = new JButton("Position du chati et de la disso");
+		addSpell.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				posType = SPELL_POS;
+				catchResizing();
+			}
+		});
+		addSpell.setBackground(Color.WHITE);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(COLOR_GRAY);
+		panel.setLayout(new FlowLayout());
+		panel.add(addPosMob);
+		panel.add(addPassTurn);
+		panel.add(addChangeTab);
+		panel.add(addSpell);
+		return panel;
+
+	}
+
 	public void refreshTextPos() {
 		textArea.setText(null);
 		for (Position p : paths.get(0).getPositions()) {
@@ -219,9 +271,10 @@ public class UI implements KeyListener {
 			mainFrame.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
 			mainFrame.setSize(new Dimension(WINDOW_X, WINDOW_Y));
 			mainFrame.requestFocus();
+			posType = POS_SELECTION_LOCKED;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_O) {
-			paths.get(0).addPos();
+		if (e.getKeyCode() == KeyEvent.VK_O && posType != POS_SELECTION_LOCKED) {
+			paths.get(0).addPos(posType);
 			refreshTextPos();
 
 		}
